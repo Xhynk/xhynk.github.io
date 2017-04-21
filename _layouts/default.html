@@ -15,7 +15,9 @@
 	<body>
 		<section class="page-header">
 			<div class="logo">
-				<img src="https://jamsandjelli.es/public/img/alex.jpg" />
+				<div class="cropper">
+					<img src="https://jamsandjelli.es/public/img/alex.jpg" />
+				</div>
 			</div>
 			<h1 class="project-name" data-text="{{ site.title | default: site.github.repository_name }}">{{ site.title | default: site.github.repository_name }}</h1>
 			<h2 class="project-tagline">A simple interactive Slash Command for Slack to give Karma (points) to users.</h2> {% if site.github.is_project_page %}
