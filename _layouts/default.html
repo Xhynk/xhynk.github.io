@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="UTF-8">
+		<!--<title>{{ page.title | default: site.title }}</title>-->
+		<title>Kᴀʀᴍᴀʙᴏᴛ</title>
+		<meta name="description" content="{{ page.description | default: site.description | default: site.github.project_tagline }}" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#00caf9">
+		<link rel="icon" type="image/png" href="{{ '/assets/img/karmabot-favicon.png' | relative_url }}" />
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+	</head>
+
+	<body>
+		<section class="page-header">
+			<div class="logo"><span class="gem">💎</span></div>
+			<h1 class="project-name" data-text="{{ site.title | default: site.github.repository_name }}">{{ site.title | default: site.github.repository_name }}</h1>
+			<h2 class="project-tagline">A simple interactive Slash Command for Slack to give Karma (points) to users.</h2> {% if site.github.is_project_page %}
+			<a href="{{ site.github.repository_url }}" class="btn">View on GitHub</a> {% endif %} {% if site.show_downloads %}
+			<a href="{{ site.github.zip_url }}" class="btn">Download .zip</a>
+			<a href="{{ site.github.tar_url }}" class="btn">Download .tar.gz</a> {% endif %}
+		</section>
+
+		<section class="main-content">
+			<section id="section--karmabot">
+				<h1 id="karmabot">💎<span> karmabot</span></h1>
+				<p>Karmabot is a <a href="https://api.slack.com/slash-commands">Slack Slash Command</a> that candivvy out “<strong>Kᴀʀᴍᴀ</strong>” credits to users (and even take <em>from</em> them). Users can be added to and removed from the database via Karmabot itself using the commands laid out below.</p>
+			</section>
+
+			<section id="section--about">
+				<h1 id="about"><i class="material-icons icon-left">info_outline</i> <span>About</span></h1>
+				<p>Karmabot has an array of responses while performing commands, ranging from adding and removing <strong>Kᴀʀᴍᴀ</strong> from a user, to even adding a new user to the database. While performing <strong>Kᴀʀᴍᴀ</strong> based tasks, such as resetting or adding <strong>Kᴀʀᴍᴀ</strong> to a user’s balance, there is a small chance of a “rare” or “legendary” response. Currently the response options are an array, and the array has a random item selected from it.</p>
+				<p>Standard <strong>Kᴀʀᴍᴀ</strong> balance is denoted in backticks (grave symbol) when displayed, with the Gemstone unicode icon <code>U+1F48E</code> like so:</p>
+
+				<div class="results">
+					<div class="response--alex">
+						<div class="align-left"><img src="https://ca.slack-edge.com/T03V90SMH-U0SAQKDQQ-4726057ba67c-48" /></div>
+						<strong>Alex</strong> <span class="slack--light"></span> <span class="slack--lighter">12:01 PM</span>
+						<div class="slack--response">
+							<span>/karmabot, give @alex +15 karma for being so awesome and programming you from the ground up.</span>
+						</div>
+					</div>
+					<div class="response--karmabot">
+						<div class="align-left">💎</div>
+						<strong>Karmabot</strong> <span class="slack--light">APP</span> <span class="slack--lighter">12:01 PM</span>
+						<div class="slack--response">
+							<span>Sure thing!</span>
+							<blockquote>
+								@alex now has <code>💎1000</code><p></p>
+				  			</blockquote>
+						</div>
+					</div>
+				</div>
+
+				<p>Karmabot stores all <strong>Kᴀʀᴍᴀ</strong> values in a database, which is configured in the <code>/config/config.php</code> file. The database format is currently as follows:
+					<table border="0" class="table table-striped table-desktop">
+						<tbody>
+							<tr>
+								<th>id</th>
+								<th>users</th>
+								<th>gender</th>
+								<th>karma_received</th>
+								<th>karma_given</th>
+								<th>karma_available</th>
+							</tr>
+							<tr>
+								<td>0</td>
+								<td>@alex</td>
+								<td>m</td>
+								<td>100</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+						</tbody>
+					</table>
+					<table border="0" class="table table-striped table-mobile">
+						<tbody>
+							<tr>
+								<th>id</th>
+								<td>0</td>
+							</tr>
+							<tr>
+								<th>users</th>
+								<td>@alex</td>
+							</tr>
+							<tr>
+								<th>gender</th>
+								<td>m</td>
+							</tr>
+							<tr>
+								<th>karma_received</th>
+								<td>100</td>
+							</tr>
+							<tr>
+								<th>karma_given</th>
+								<td>0</td>
+							<tr>
+								<th>karma_available</th>
+								<td>0</td>
+							</tr>
+						</tbody>
+					</table>
+				</p>
+
+				<ul>
+					<li><code>id</code> - An Auto-Increment field to track users.</li>
+					<li><code>users</code> - A string with the user's <code>@username</code>.</li>
+					<li><code>gender</code> - A string <code>m</code> or <code>f</code> for gender based responses.</li>
+					<li><code>karma_received</code> - An int field that tracks their <strong>Kᴀʀᴍᴀ</strong>.</li>
+					<li><code>karma_given</code> - <em>(Unused)</em> Contains how much <strong>Kᴀʀᴍᴀ</strong> they've given out, total.</li>
+					<li><code>karma_available</code> - <em>(Unused)</em> Resets to 100 daily. Contains how much <strong>Kᴀʀᴍᴀ</strong> they can give out.</li>
+				</ul>
+			</section>
+
+			<section id="section--commands">
+				<h1 id="commands"><i class="material-icons icon-left">code</i> <span>Commands</span></h1>
+				<p>Currently, I've set both <code>/karmabot</code> and <code>/karmabot,</code> as Slash Commands, since it feels more natural to invoke karmabot using proper speech which can include an immediate comma which breaks the command <code>/karmabot</code>. Below is a list of commands and arguments that karmabot knows and can parse.</p>
+				<ul>
+					<li><code>/karmabot -help</code> - Display some quick tips.</li>
+					<li><code>/karmabot -joke</code> - Display a joke (currently disabled, some NSFW jokes showed up).</li>
+					<li><code>/karmabot -leaderboard</code> - Display the leaderboard in descending order.</li>
+					<li><code>/karmabot, give @alex +10 karma</code> - Add <strong>Kᴀʀᴍᴀ</strong> to a user’s balance.</li>
+					<li><code>/karmabot, take -10 karma from @alex</code> - Subtract <strong>Kᴀʀᴍᴀ</strong> from a user’s balance.</li>
+					<li><code>/karmabot @alex -sudo --reset</code> - Reset a user’s <strong>Kᴀʀᴍᴀ</strong> back to 0.</li>
+					<li><code>/karmabot add new player @name "m/f"</code> - Add users to the game! “m” or “f” is required for gender pronoun selection.</li>
+					<li><code>/karmabot remove player @name</code> - Being a party pooper? Drop them from the game.
+					<li><code>/karmabot, how much karma does @alex have?</code> - If a <strong>Kᴀʀᴍᴀ</strong> function isn’t ran, it will run a <strong>Kᴀʀᴍᴀ</strong> balance query instead.</li>
+				</ul>
+			</section>
+
+			<section id="section--getting-started">
+				<h1 id="getting-started"><i class="material-icons icon-left">build</i> <span>Getting Started</span></h1>
+				<strong>Bleeding Edge:</strong> <a class="download" href="{{ site.github.repository_url }}"><i class="material-icons">cloud_download</i> download</a> the development source package.
+				<h2>Notes:</h2>
+				<ul>
+					<li>Karmabot is not production ready, and thus isn't in the Slack repository.</li>
+					<li>There is no prepackaged <code>.zip</code> file, use the master branch.</li>
+				</ul>
+
+				<h2>Server:</h2>
+				<ol>
+					<li>After downloading the src, upload it to your server.</li>
+					<li>Set up your database and place the information in <strong>/config/config.php</strong> <em>(Note: Use the <strong>/config/config.sample.php</strong> as a template)</em>
+				</ol>
+
+				<h2>Slack:</h2>
+				<ol>
+					<li>First you'll need to set up a <a href="https://api.slack.com/slash-commands/" target="_blank">Slack Slash Command</a>.</li>
+					<li><form method="get" target="_blank" action="https://jamsandjelli.es/api/slack-api-v2/karmabot/github-redirect-to-slack.php" class="inline-block"><span>Go to</span> <div class="results inline-block"><span>https://</span><div class="inline-block relative"><input name="team" placeholder="Your Slack Team"></input><button type="submit" class="absolute"><i class="material-icons">forward</i></button></div><span>.slack.com/apps/manage/custom-integrations</span></div></form></li>
+					<li>Click on <strong>Add Configuration</strong>.</li>
+					<li>For <strong>Command</strong> type <strong>/karmabot</strong> (I recommend making another configuration for <strong>/karmabot,</strong> as well)</li>
+					<li>For <strong>URL</strong> use the url to your <strong>/karmabot.php</strong> file.</li>
+					<li><strong>Method</strong> should be set to POST.</li>
+					<li><em>(Note: I've been using <strong>"-help" for options</strong> for the <strong>Usage Hint</strong>)</em>.</li>
+					<li>Click <strong>Save Integration</strong>.</li>
+				</ol>
+
+				<h2>Usage:</h2>
+				<ol>
+					<li>In Slack, use <strong>/karmabot</strong> followed by a <a href="#section--commands">command</a> above.</li>
+					<li>The command list will continue to be updated, check back to download new master branch sourcesm, or add your own commands!</li>
+				</ol>
+			</section>
+
+			<section id="section--planned-features">
+				<h1 id="planned-features"><i class="material-icons icon-left">access_time</i> <span>Planned Features</span></h1>
+				<ul>
+					<li>I’d like to have better “failure” notices, if the /karmabot command fails, or the mysqli query fails.</li>
+					<li>I’d like to have a daily or weekly cap, whether it limits users giving, or users receiving. Like a max of me giving any combo of people 100 <strong>Kᴀʀᴍᴀ</strong> in a day, or have a max of being able to receive 100.</li>
+					<li>I’d like a lottery system, perhaps making use of Action Buttons.</li>
+					<li>I’d like “admin only” options, like “reset”, which would notify me (or an admin that’s defined in the db)</li>
+					<li>I’d like some better “human-like” logic/</li>
+				</ul>
+			</section>
+
+			<section id="section--footer">
+				{% include footer.html %}
+			</section>
+		</section>
+	</body>
+</html>
